@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block body %}
+
+</head>
+<body>
+  <h1>Aca va el mapa...</h1>
+  <div id="map"></div>
+  <script>
+    var map;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.614314, lng: -58.498185},
+        zoom: 8
+      });
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6mWHDjG_9F4XHOYZ-lI9y885wlnxOrrc&callback=initMap"
+  async defer></script>
+</body>
+    
+
+{% endblock %}
