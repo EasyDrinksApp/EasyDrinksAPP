@@ -1,35 +1,34 @@
 {% extends "layout.html" %}
 {% block body %}
 
-  <div class="row">
-    <div class="col-md-7">
-      <table class="table table-striped table-hover table-bordered table-sm bg-white">
-        <thead>
-          <h1>Listado de bebidas</h1>
-          <tr>
-            <td>ID</td>
-            <td>nombre</td>
-            <td>precio</td>
-            <td>cantidad</td>
-          </tr>
-        </thead>
-        <tbody>
-          {% for producto in productos %}
-          <tr>
-            <td>{{producto.0}}</td>
-            <td>{{producto.1}}</td>
-            <td>{{producto.2}}</td>
-            <td>
-                <div class="box">
-                    <input type="number" value="0" min="0" max="10">
-                </div>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+<div class="row">
+  <div class="col-md-7">
+    <table class="table table-striped table-hover table-bordered table-sm bg-white">
+      <thead>
+        <h1>Listado de bebidas</h1>
+        <tr>
+          <td>nombre</td>
+          <td>precio</td>
+          <td>cantidad</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for producto in productos %}
+        <tr>
+          <td>{{producto.0}}</td>
+          <td>{{producto.1}}</td>
+          <td>
+              <div class="box">
+                  <input type="number" value="0" min="0" max="{{producto.3}}">
+              </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
-
+<div>
+  <input type="button" name="comprar" id="comprar" value="Comprar" class="btn btn-success">
+</div>
 {% endblock %}
