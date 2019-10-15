@@ -5,14 +5,13 @@
     <title>FLASK CRUD</title>
     <!-- BOOSTRAP 4 -->
     <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/jquery.nice-number.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.nice-number.css')}}">
     
-    
+  </head>
   <body>
-
     <!-- NAVIGATION  -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="/">Easy Drinks</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -20,14 +19,21 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="/">Home</a>
+            <a class="nav-link" href="/">Registrate</a>
           </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Ingresar</a>
+          </li>
+          <!--
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('productos') }}">Productos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('adminProd') }}">Administracion</a>
+            <a class="nav-link" href="http://localhost/CRUD_PHP/listar.php">Administracion</a>
           </li>
+
+          -->
+          
         </ul>
       </div>
 </nav>
