@@ -1,22 +1,104 @@
 {% extends "layout.html" %}
 {% block body %}
 
+<head>
+
 </head>
+
+
 <body>
-  <h1>Aca va el mapa...</h1>
-  <div id="map"></div>
-  <script>
-    var map;
-    function initMap() {
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.614314, lng: -58.498185},
-        zoom: 8
-      });
-    }
-  </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6mWHDjG_9F4XHOYZ-lI9y885wlnxOrrc&callback=initMap"
-  async defer></script>
+  <div class="container-fluid">
+    <div>
+      <div id="search-address">
+        <input type='text' id='customer-address' placeholder="Direccion" /><button id='button-check' type="button"
+          class="btn btn-info">Chequear</button>
+      </div>
+
+      <div id="mapid"></div>
+
+      <div id='goproducts'>
+        <a id='goproducts-button' href='/productos' class='invisible btn btn-success'>Ir a la pagina de
+          productos</a>
+      </div>
+
+      <script>
+
+        const RADIO = 1660.00;
+        let map;
+
+        // Inicializacion y adicion de mapa
+        function initMap() {
+          // Ubicacion del IFTS16
+          var headquerters = { lat: -34.614264, lng: -58.498287 };
+          // Mapa centrado en IFTS16
+          map = new google.maps.Map(
+            document.getElementById('mapid'), { zoom: 13, center: headquerters });
+          // Marcador posicionado en IFTS16
+          var marker = new google.maps.Marker({ position: headquerters, map: map });
+          // Radio de entrega 
+          var barrio = {
+            center: { lat: -34.614264, lng: -58.498287 },
+            population: 27148
+          };
+          var hqCircle = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            map: map,
+            center: barrio.center,
+            radius: Math.sqrt(barrio.population) * 10
+          })
+        }
+
+        document.getElementById('button-check').onclick = checkAddress;
+
+        function checkAddress() {
+          const $button = $('#goproducts-button');
+          isAddressInside()
+            .then(() => $button.removeClass('invisible'))
+            .catch(() => $button.addClass('invisible'));
+        }
+
+        function isAddressInside() {
+          return new Promise((resolve, reject) => {
+            const yourAddress = document.getElementById('customer-address').value;
+            fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + yourAddress + '&key=AIzaSyBHgtR4oHrwZv_r0cxKI0IY5nVh9s93Wz4')
+              .then(res => res.json())
+              .then(res => {
+                const lat = res.results[0].geometry.location.lat;
+                const lng = res.results[0].geometry.location.lng;
+                const miUbicacion = new google.maps.LatLng(lat, lng);
+
+                var marker = new google.maps.Marker({
+                  position: miUbicacion,
+                  map: map,
+                  title: 'Usted esta aqui!',
+                });
+
+                var headquerters = { lat: -34.614264, lng: -58.498287 }
+                const myMarker = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
+                const myhq = new google.maps.LatLng(headquerters.lat, headquerters.lng);
+                const distance = google.maps.geometry.spherical.computeDistanceBetween(myMarker, myhq);
+
+                if (distance < RADIO) {
+                  resolve()
+                } else {
+                  reject(new Error("Disculpa, aun no llegamos a tu ubicacion"));
+                }
+              })
+          })
+        }
+      </script>
+
+      <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHgtR4oHrwZv_r0cxKI0IY5nVh9s93Wz4&callback=initMap">
+        </script>
+    </div>
+  </div>
+
 </body>
-    
+
 
 {% endblock %}
