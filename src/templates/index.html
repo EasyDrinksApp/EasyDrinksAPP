@@ -10,7 +10,7 @@
   <div class="container-fluid">
     <div>
       <div id="search-address">
-        <input type='text' id='customer-address' placeholder="Direccion" /><button id='button-check' type="button"
+        <input type='text' id='customer-address' placeholder="Direccion (Ej: Lascano 4044, Capital Federal)" /><button id='button-check' type="button"
           class="btn btn-info">Chequear</button>
       </div>
 
@@ -23,7 +23,7 @@
 
       <script>
 
-        const RADIO = 1660.00;
+        const RADIO = 2000.00;
         let map;
 
         // Inicializacion y adicion de mapa
@@ -48,7 +48,7 @@
             fillOpacity: 0.35,
             map: map,
             center: barrio.center,
-            radius: Math.sqrt(barrio.population) * 10
+            radius: Math.sqrt(barrio.population) * 11
           })
         }
 
