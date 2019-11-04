@@ -18,9 +18,11 @@
           <td>{{producto.0}}</td>
           <td>{{producto.1}}</td>
           <td>
-              <div class="box">
-                  <input type="number" value="0" min="0" max="{{producto.3}}">
-              </div>
+            <form action="">
+                <div class="box">
+                    <input type="number" value="0" min="0" max="{{producto.3}}">
+                </div>
+            </form>
           </td>
         </tr>
         {% endfor %}
@@ -29,6 +31,6 @@
   </div>
 </div>
 <div>
-  <input type="button" name="comprar" id="comprar" value="Comprar" class="btn btn-success">
+  <input type="button" name="comprar" id="comprar" value="Generar Pedido" class="btn btn-success">
 </div>
 {% endblock %}
