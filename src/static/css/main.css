@@ -5,7 +5,9 @@ body {
   /*background: linear-gradient(to right, rgb(138, 224, 0), rgb(226, 45, 172)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   }
-
+h3 {
+  color: white;
+}
 #search-address {
   width: 800px;
   margin-top: 2rem;

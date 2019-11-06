@@ -34,7 +34,7 @@
           map = new google.maps.Map(
             document.getElementById('mapid'), { zoom: 13, center: headquerters });
           // Marcador posicionado en IFTS16
-          var marker = new google.maps.Marker({ position: headquerters, map: map });
+          var marker = new google.maps.Marker({ position: headquerters, map: map, title: 'EasyDrinks' });
           // Radio de entrega 
           var barrio = {
             center: { lat: -34.614264, lng: -58.498287 },
@@ -81,6 +81,8 @@
                 const myMarker = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
                 const myhq = new google.maps.LatLng(headquerters.lat, headquerters.lng);
                 const distance = google.maps.geometry.spherical.computeDistanceBetween(myMarker, myhq);
+                
+                //vardump(distance);
 
                 if (distance < RADIO) {
                   resolve()

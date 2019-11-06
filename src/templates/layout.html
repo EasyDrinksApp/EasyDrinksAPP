@@ -38,9 +38,26 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">Login / Register</a>
+        {% if "usuario" in session: %}
+        <h3 align=center>Bienvenido : {{session['usuario']}}</h3>
+        {% else %}
+        <h3 align=center>Bienvenido : Invitado</h3>
+        {% endif %}
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        
+        {% if "usuario" in session: %}
+        <li>
+          <a class="nav-link" href='/logout'>Logout</a>
         </li>
+        {% else %}
+        <li class="nav-item active">
+            <a class="nav-link" href='/signup'>SignUp</a>
+        </li>
+        <li>
+            <a class="nav-link" href='/login'>Login</a>
+        </li>
+        {% endif %}
       </ul>
     </div>
   </nav>
