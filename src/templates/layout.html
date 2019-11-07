@@ -38,21 +38,27 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
-        {% if "usuario" in session: %}
-        <h3 align=center>Bienvenido : {{session['usuario']}}</h3>
+        {% if current_user.is_authenticated %}
+        <h3 align=center>Bienvenido : {{ current_user.usuario}}</h3>
         {% else %}
-        <h3 align=center>Bienvenido : Invitado</h3>
+        <h3 align=center></h3>
         {% endif %}
       </ul>
       <ul class="navbar-nav ml-auto">
         
-        {% if "usuario" in session: %}
+        {% if current_user.is_authenticated %}
+        <li>
+          <a class="navbar-brand " href="/carrito"> Carrito <span class="badge">{{num_articulos}} </span></a>
+        </li>
+        <li>
+          <a class="navbar-brand " href="/perfil/{{ current_user.usuario}}"> Perfil</a>
+        </li>
         <li>
           <a class="nav-link" href='/logout'>Logout</a>
         </li>
         {% else %}
         <li class="nav-item active">
-            <a class="nav-link" href='/signup'>SignUp</a>
+            <a class="nav-link" href='/registro'>Registro</a>
         </li>
         <li>
             <a class="nav-link" href='/login'>Login</a>
@@ -70,7 +76,7 @@
 
 <footer>
 
-  <div id="footer" class="container-fluid bg-dark">
+  <div id="footer" class="container-fluid bg-dark fixed-bottom">
     <div id="footer-col" class="row">
       <div class="col-sm text-center">
         <ul style="list-style-type:none;">
