@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}Tienda de Easydrinks{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="row">
+  <div class="col-md-2">
+    <h3>Categorias...</h3>  
+    <div class="list-group">
+      
+      {% for cat in categorias %}
+      {% if categoria.nombre==cat.nombre%}
+        <a class="list-group-item active" href="{{url_for("categorias",id=cat.id)}}">{{cat.nombre}}</a>
+      {% else %}
+        <a class="list-group-item" href="{{url_for("categorias",id=cat.id)}}">{{cat.nombre}}</a>
+      {% endif%}
+      {% endfor %}
+      
+    </div>
+  </div>
+  <div class="col-md-10">
+	    <h3>Nuestros productos... ({{productos.nombre}})</h3>
+	    <div class="panel panel-default">
+  			<table class="table table-bordered">
+          <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Stock</th>  
+          </tr>
+  	    		{% for prod in productos %}
+
+  	    		<tr>
+  	    		<td>{{prod.nombre}}</td>
+                <td>{{prod.precio}}</td>
+                <td>{{prod.stock}}</td>
+                <td><a href="{{url_for('carrito_add',id=prod.id)}}"><span class="glyphicon glyphicon-shopping-cart"></span> Comprar</a></td>
+  	    		</tr>
+  	    		{% endfor %}
+  	    	</table>
+  	    
+  	</div>
+  </div>
+</div>
+ 	
+  
+{% endblock %}
