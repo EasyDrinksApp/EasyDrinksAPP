@@ -42,7 +42,7 @@ class Productos(db.Model):
     __tablename__ = 'productos'
     id = Column(Integer, primary_key=True)
     nombre = Column(String(255))
-    precio = Column(String(10))
+    precio = Column(Float, default=0)
     stock = Column(Integer)
     categoriaId = Column(Integer, ForeignKey('categorias.id'), nullable=False)
     categoria = relationship("Categorias", backref="Productos")

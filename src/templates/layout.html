@@ -48,10 +48,10 @@
         
         {% if current_user.is_authenticated %}
         <li>
-          <a class="navbar-brand " href="/carrito"> Carrito <span class="badge">{{num_articulos}} </span></a>
+          <a class="navbar-brand " href="/carrito"> Carrito <span class="badge">{{num_productos}} </span></a>
         </li>
         <li>
-          <a class="navbar-brand " href="/perfil/{{ current_user.usuario}}"> Perfil</a>
+          <a class="navbar-brand " href="/perfil/{{current_user.usuario}}"> Perfil</a>
         </li>
         <li>
           <a class="nav-link" href='/logout'>Logout</a>
@@ -173,6 +173,5 @@
   integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="{{url_for('static', filename='js/main.js')}}"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="{{url_for('static', filename='js/jquery.nice-number.js')}}"></script>
 
 </html>
