@@ -6,13 +6,6 @@ from flask_wtf.file import FileField
 from wtforms.validators import Required, NumberRange
 
 
-class FormCategoria(FlaskForm):
-    nombre = StringField("Nombre:",
-                         validators=[Required("Tienes que introducir el dato")]
-                         )
-    submit = SubmitField('Enviar')
-
-
 class FormProducto(FlaskForm):
     nombre = StringField("Nombre:",
                          validators=[Required("Tienes que introducir el dato")]
@@ -26,17 +19,10 @@ class FormProducto(FlaskForm):
     CategoriaId = SelectField("Categoría:", coerce=int)
     submit = SubmitField('Enviar')
 
-
-class FormSINO(FlaskForm):
-    si = SubmitField('Si')
-    no = SubmitField('No')
-
-
 class LoginForm(FlaskForm):
     usuario = StringField('Usuario', validators=[Required()])
     password = PasswordField('Password', validators=[Required()])
     submit = SubmitField('Entrar')
-
 
 class FormCliente(FlaskForm):
     usuario = StringField('Usuario', validators=[Required()])

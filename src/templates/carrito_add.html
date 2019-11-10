@@ -18,7 +18,15 @@
           {{form.id()}}<br/>
           {{form.cantidad.label()}} {{form.cantidad(size="10", class="form-control")}}
           <br/>
-          {{form.submit(class="btn btn-lg btn-primary btn-block")}}
+          <div class="row">
+            <div class="col-md-6">
+              {{form.submit(class="btn btn-lg btn-primary btn-block")}}
+            </div>
+            <div class="col-md-6">
+              <a class="btn btn-lg btn-secondary" href="{{url_for('categorias')}}" role="button">Volver</a>  
+            </div>
+          </div>
+        </div>
     </form>
     <br/>
   </div>

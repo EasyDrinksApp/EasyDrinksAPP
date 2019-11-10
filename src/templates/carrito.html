@@ -3,8 +3,9 @@
 {% block body %}
 <div class="container">
   <div class="row">
-  
-    <h3>Carrito de la compra</h3>  
+      <h3>Carrito de la compra</h3>
+  </div>
+  <div class="row">
     <br/>
     <br/><br/>
     {% if total>0 %}
@@ -22,16 +23,35 @@
           <td>{{producto.0.nombre}}</td>
           <td>{{producto.1}}</td>
           <td>{{producto.0.precio_final()}}</td>
-          <td>{{producto.0.precio_final()*prod.1}}</td>
-          <td><a href="{{url_for('carrito_delete',id=prod.0.id)}}"><span class="glyphicon glyphicon-trash"></span> Borrar</a></td>
+          <td>{{producto.0.precio_final()*producto.1}}</td>
+          <td><a href="{{url_for('carrito_delete',id=producto.0.id)}}"><span class="glyphicon glyphicon-trash"></span> Borrar</a></td>
         </tr>
       {% endfor %}
       </table>
       <h2>Total:{{total}}</h2>
-      <a class="btn btn-primary" href="{{url_for('pedido')}}" role="button">Comprar</a>
+      <br>
+      <div class="row">
+        <div class="col-md-6-justified">
+          <a class="btn btn-primary" href="{{url_for('pedido')}}" role="button">Comprar</a>
+        </div>
+        <div class="col-md-6">
+          <a class="btn btn-secondary" href="{{url_for('categorias')}}" role="button">Volver</a>
+        </div>
+      </div>
+      
     </div>
     {% else %}
-      <h2>No hay artículos en el carrito</h2>
+      <div>
+        <div class="row">
+          <h2>No hay artículos en el carrito</h2>
+        </div>
+          <div class="row">
+            <div class="col-md-6">
+              <a class="btn btn-secondary" href="{{url_for('categorias')}}" role="button">Volver a productos</a>
+          </div>
+        </div>
+      </div>
+      
     {% endif %}  
   </div>
 </div>
