@@ -1,0 +1,59 @@
+body {
+  background-image: url(/src/static/image/bebidasFondo.jpg);
+  /*background: rgb(78, 45, 226);  /* fallback for old browsers */
+  /*background: -webkit-linear-gradient(to right, rgb(157, 224, 0), rgb(226, 57, 45));  /* Chrome 10-25, Safari 5.1-6 */
+  /*background: linear-gradient(to right, rgb(138, 224, 0), rgb(226, 45, 172)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+h3 {
+  color: orange;
+}
+
+#titulos {
+  color: #17a2b8;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#cardTitle {
+  font-size: xx-large;
+  text-transform: uppercase;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#search-address {
+  width: 800px;
+  margin-top: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#mapid {
+  height: 400px;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0rem;
+  margin-bottom: 2rem;
+}
+
+#goproducts {
+  width: 800px;
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#footer {
+  padding-top: 1rem;
+  padding-block-end: 0rem;
+}
+
+#preciofinal {
+  color: #ffc107;
+  text-align: center;
+  background-color: lightslategray;
+}
+
+.invisible{display:none;}

@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block title %}Tienda de Easydrinks{% endblock %}
+{% block body %}
+
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <div class="card border-info pt-3">
+        <h3 id="titulos">
+          <p class="text-uppercase">Añadir al carrito</p>
+        </h3>
+      </div><br>
+
+      <div class="card border-dark pr-4 pl-4 pt-3">
+        <table class="table table-bordered">
+          <tr>
+            <th>Producto</th>
+            <th class="text-center">Precio</th>
+          </tr>
+          <td>{{prod.nombre}}</td>
+          <td class="text-center">$ {{prod.precio}}</td>
+        </table>
+        {% for field, errors in form.errors.items() %}
+        <div class="alert alert-danger">
+          {{ form[field].label }}: {{ ', '.join(errors) }}
+        </div>
+        {% endfor %}
+        <form class="form-horizontal" method="post">
+          <div class="form-group">
+            {{ form.csrf_token }}
+            {{form.id()}}
+            <b>{{form.cantidad.label()}}</b><br>
+
+            <script>
+              function isNumberKey(evt) {
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if (charCode != 46 && charCode > 31
+                  && (charCode < 48 || charCode > 57))
+                  return false;
+                return true;
+              }
+            </script>
+
+            <div><INPUT placeholder="Solo 4 digitos"
+                onkeypress="return isNumberKey(event)" type="text" name="txtNumber" maxlength="4"
+                style="text-align:right;" size="10"></div>
+
+            <!-- campo de input original
+              {{form.cantidad(size="10", class="form-group col-3", style="text-align:right;")}}
+            -->
+            <div class="row mt-2">
+              <div class="col-md-3">
+                {{form.submit(class="btn btn-success btn-block")}}
+              </div>
+              <div>
+                <a class="btn btn-danger" href="{{url_for('categorias')}}" role="button">Volver</a>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-3"></div>
+  </div>
+</div>
+
+
+{% endblock %}

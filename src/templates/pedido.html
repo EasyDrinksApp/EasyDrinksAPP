@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}Tienda de EasyDrinks{% endblock %}
+{% block body %}
+
+<div class="container">
+  <div class="row">
+    <h2>Gracias por comprar en nuestra tienda</h2>
+  </div>
+  <div class="row">
+    <h2>Tienes que pagar: {{total}}</h2>
+  </div>
+  <div class="row">
+    <h2>Tu pedido estara llegando en: xxx</h2>
+  </div>
+  <div class="row">
+    <a class="btn btn-primary" href="{{url_for('Index')}}" role="button">Finalizar</a>
+  </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block title %}Tienda de EasyDrinks{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <div class="card border-info" style="width: 28rem; margin-top: 20px;">
+        <div class="card-body">
+          {% if not perfil %}
+          <div class="card-title">
+            <center>
+              <p class="text-info" id="cardTitle">Registro de usuario</p>
+            </center>
+          </div>
+          {% else %}
+          <h3>Perfil de {{session["usuario"]}}</h3>
+          {% endif %}
+          {% for field, errors in form.errors.items() %}
+          <div class="alert alert-danger">
+            {{ form[field].label }}: {{ ', '.join(errors) }}
+          </div>
+          {% endfor %}
+          <form class="form-horizontal" method="post">
+            <div class="form-group">
+              {{ form.csrf_token }}
+              {% if not perfil %}
+              {{form.usuario.label() }}{{form.usuario(size="100",class="form-control")}}
+              {% else %}
+              {{form.usuario.label() }}{{form.usuario(readonly="readonly",size="100",class="form-control")}}<br />
+              {% endif %}
+            </div>
+            <div class="form-group">
+              {% if not perfil %}
+              {{form.password.label() }}{{form.password(size="100",class="form-control")}}
+              {% else %}
+              <a href="/cambiar_password/{{session["usuario"]}}">Cambiar contraseña</a><br />
+              {% endif %}
+            </div>
+            <div class="form-group">
+              {{form.nombre.label() }}{{form.nombre(size="100",class="form-control")}}
+            </div>
+            <div class="form-group">
+              {{form.email.label() }}{{form.email(size="100",class="form-control")}}<br />
+            </div>
+            {{form.submit(class="btn btn-lg btn-info")}}
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-3"></div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Easy Drinks</title>
+
+  <!-- BOOSTRAP 4 -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+
+  <!-- Leaflet CSS-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+  <!-- Leaflet JS File-->
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+    crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+  <!-- Mapbox API -->
+  <script src='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v1.3.2/mapbox-gl.css' rel='stylesheet' />
+
+  <!-- Font Awsome -->
+  <script src="https://kit.fontawesome.com/15b7c25fbd.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+  <!-- NAVIGATION  -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Easy Drinks</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        {% if current_user.is_authenticated %}
+        <h3 align=center>Bienvenido: {{ current_user.usuario}}</h3>
+        {% else %}
+        <h3 align=center></h3>
+        {% endif %}
+      </ul>
+      <ul class="navbar-nav ml-auto">
+
+        {% if current_user.is_authenticated %}
+        <li>
+          <a class="navbar-brand " href="/carrito"><span class="badge">{{num_articulos}} <i
+                class="fas fa-shopping-cart fa-lg"></i></span></a>
+        </li>
+        <li>
+          <a class="navbar-brand " href="/perfil/{{ current_user.usuario}}"><span title="Perfil"><i
+                class="far fa-id-badge fa-lg"></i></span></a>
+        </li>
+        <li>
+          <a class="nav-link" href='/logout'>Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item active">
+          <a class="nav-link" href='/registro'>Registro</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href='/login'>Ingresar</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+
+  {% block body %}
+  {% endblock %}
+
+</body>
+
+<footer>
+  <div id="footer" class="container-fluid bg-dark fixed-bottom">
+    <div id="footer-col" class="row">
+      <div class="col-sm text-center">
+        <ul style="list-style-type:none;">
+          <center>
+            <li>
+              <span style="color: grey">INFO</span>
+            </li>
+          </center>
+          <center>
+            <li style="color: white">
+              Nosotros
+            </li>
+          </center>
+          <center>
+            <li style="color: white">
+              Contacto
+            </li>
+          </center>
+      </div>
+      <div class="col-sm text-center">
+        <ul style="list-style-type:none;">
+          <center>
+            <li>
+              <span style="color: grey">SEGUINOS</span>
+            </li>
+          </center>
+          <center>
+            <li style="color: white">
+              Facebook
+            </li>
+          </center>
+          <center>
+            <li style="color: white">
+              Twitter
+            </li>
+          </center>
+          <center>
+            <li style="color: white">
+              Instagram
+            </li>
+          </center>
+        </ul>
+      </div>
+      <div class="col-sm">
+        <ul style="list-style-type:none;">
+          <center>
+            <li>
+              <span style="color: grey">UNITE A EASYDRINKS</span>
+            </li>
+          </center>
+          <center>
+            <li style="color: white">
+              Empleos
+            </li>
+          </center>
+          <center>
+            <li>
+              <a href="https://easydrinks-php.herokuapp.com/login.php" style="color: yellow">Acceso Empleados</a>
+            </li>
+          </center>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+</html>

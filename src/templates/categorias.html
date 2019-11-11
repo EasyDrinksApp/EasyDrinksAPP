@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block title %}Tienda de Easydrinks{% endblock %}
+{% block body %}
+
+<div class="container">
+  <div class="row">
+    <div class="card col-12 border-info mt-4 pt-2">
+      <h3 id="titulos" class="text-uppercase">Nuestros productos <i class="far fa-hand-point-right fa-xl"></i>
+        {{categoria.nombre}}</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 col-sm-4 mt-4">
+      <h4 class="text-center">CATEGORIAS</h4>
+      <div class="list-group">
+
+        {% for cat in categorias %}
+        {% if categoria.nombre==cat.nombre%}
+        <a class="list-group-item active" href="{{url_for("categorias",id=cat.id)}}">{{cat.nombre}}</a>
+        {% else %}
+        <a class="list-group-item" href="{{url_for("categorias",id=cat.id)}}">{{cat.nombre}}</a>
+        {% endif%}
+        {% endfor %}
+
+      </div>
+    </div>
+    <div class="col-md-10 mt-4">
+      <div class="panel panel-default" style="height:500px;overflow:auto;">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th style="background-color: #938c96;">
+                <h5>Producto</h5>
+              </th>
+              <th class="text-center" style="background-color: #938c96;">
+                <h5>Precio</h5>
+              </th>
+              <th class="text-center" style="background-color: #938c96;">
+                <h5>Stock</h5>
+              </th>
+            </tr>
+          </thead>
+          {% for prod in productos %}
+
+          <tr>
+            <td class="align-middle">{{prod.nombre}}</td>
+            <td class="text-center align-middle">$ {{prod.precio}}</td>
+            <td class="text-center align-middle">{{prod.stock}}</td>
+            <td>
+              <center><a class="btn btn-warning" href="{{url_for('carrito_add',id=prod.id)}}"><span
+                    class="glyphicon glyphicon-shopping-cart"></span>
+                  Comprar</a></center>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+
+  {% endblock %}
