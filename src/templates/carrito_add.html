@@ -31,24 +31,7 @@
             {{ form.csrf_token }}
             {{form.id()}}
             <b>{{form.cantidad.label()}}</b><br>
-
-            <script>
-              function isNumberKey(evt) {
-                var charCode = (evt.which) ? evt.which : evt.keyCode;
-                if (charCode != 46 && charCode > 31
-                  && (charCode < 48 || charCode > 57))
-                  return false;
-                return true;
-              }
-            </script>
-
-            <div><INPUT placeholder="Solo 4 digitos"
-                onkeypress="return isNumberKey(event)" type="text" name="txtNumber" maxlength="4"
-                style="text-align:right;" size="10"></div>
-
-            <!-- campo de input original
               {{form.cantidad(size="10", class="form-group col-3", style="text-align:right;")}}
-            -->
             <div class="row mt-2">
               <div class="col-md-3">
                 {{form.submit(class="btn btn-success btn-block")}}
