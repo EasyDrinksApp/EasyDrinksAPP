@@ -76,6 +76,7 @@ class Pedidos(db.Model):
     id = Column(Integer, primary_key=True)
     fecha = Column(Date)
     id_cliente = Column(Integer, ForeignKey('clientes.id'), nullable=False)
+    direccion = Column(String(200))
     relcliente = relationship("Clientes", backref="Pedidos")
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
