@@ -1,18 +1,24 @@
 {% extends "layout.html" %}
 {% block title %}Tienda de EasyDrinks{% endblock %}
 {% block body %}
+
 <div class="container">
-  <div class="row">
-    <h2>Gracias por comprar en EasyDrinks</h2>  
-  </div>
-  <div class="row">
-    <h2>Tenes que pagar: $ {{total}}</h2>
-  </div>
-  <div class="row">
-      <h2>Tu pedido estara llegando en: xxx Tiempo</h2>
+  <div class="main">
+    <div class="row">
+      <div class="card col-12 border-info mt-4 pt-2">
+        <h3 id="titulos" class="text-uppercase">Pedido</h3>
+      </div>
     </div>
-  <div class="row">
-    <a class="btn btn-primary" href="{{url_for('Index')}}" role="button">Finalizar</a>
+
+    <div class="card mb-3">
+      <img src="" class="card-img-top" alt="">
+      <div class="card-body">
+        <h5 class="card-title">Gracias por comprar en nuestra tienda</h5>
+        <p class="card-text">Tienes que abonar un total de ${{total}}</p>
+        <p class="card-text">Tu pedido estara llegando en xxx minutos</p>
+        <a class="btn btn-primary" href="{{url_for('Index')}}" role="button">Finalizar</a>
+      </div>
+    </div>
   </div>
 </div>
  	
