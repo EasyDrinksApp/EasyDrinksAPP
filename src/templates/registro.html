@@ -14,7 +14,7 @@
             </center>
           </div>
           {% else %}
-          <h3>Perfil de {{session["usuario"]}}</h3>
+          <h4>Perfil de {{current_user.usuario}}</h4>
           {% endif %}
           {% for field, errors in form.errors.items() %}
           <div class="alert alert-danger">
@@ -43,7 +43,7 @@
             <div class="form-group">
               {{form.email.label() }}{{form.email(size="100",class="form-control")}}<br />
             </div>
-            {{form.submit(class="btn btn-lg btn-info")}}
+            {{form.submit(class="btn btn-info")}}
           </form>
         </div>
       </div>

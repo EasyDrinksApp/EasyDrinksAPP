@@ -1,12 +1,16 @@
 
-
 h3 {
   color: orange;
+}
+
+#main {
+  padding-bottom: 2rem;
 }
 
 #titulos {
   color: #17a2b8;
   text-align: center;
+  text-transform: uppercase;
   vertical-align: middle;
 }
 
@@ -33,15 +37,25 @@ h3 {
 }
 
 #goproducts {
-  width: 800px;
+  width: 800px; 
   margin-bottom: 2rem;
   margin-left: auto;
   margin-right: auto;
 }
 
 #footer {
-  padding-top: 1rem;
-  padding-block-end: 0rem;
+  bottom: 0;
+  width: 100%;
+  height: 7rem;
+  padding-top: 0.5rem;
+}
+
+#sp {
+  color: grey;
+}
+
+#li {
+  color: white;
 }
 
 #preciofinal {
