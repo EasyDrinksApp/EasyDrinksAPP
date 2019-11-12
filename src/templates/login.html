@@ -2,24 +2,34 @@
 
 {% block body %}
 <div class="container">
-		<div class="col-md-4"></div>
-		<div class="col-md-4">
-			  <form class="form-signin" method="post">
-			  {% for field, errors in form.errors.items() %}
-				<div class="alert alert-danger">
-				  {{ form[field].label }}: {{ ', '.join(errors) }}
+	<div class="row">
+		<div class="col"></div>
+		<div class="col">
+			<div class="card border-info mb-3 col-md" style="width: 18rem; margin-top: 40px;">
+				<div class="card-body">
+					<form class="form-signin" method="post">
+						{% for field, errors in form.errors.items() %}
+						<div class="alert alert-danger">
+							{{ form[field].label }}: {{ ', '.join(errors) }}
+						</div>
+						{% endfor %}
+						<div class="card-title">
+							<center>
+								<p class="text-info form-signin-heading" id="cardTitle">Ingresa</p>
+							</center>
+						</div>
+						{{ form.csrf_token }}
+						{{form.usuario.label()}}
+						{{form.usuario(class="form-control")}}
+
+						{{form.password.label()}}
+						{{form.password(class="form-control")}}<br>
+						{{form.submit(class="btn btn-info")}}
+					</form>
 				</div>
-			  {% endfor %}
-				<h2 class="form-signin-heading">Login</h2>
-				{{ form.csrf_token }}
-				{{form.usuario.label()}}
-				{{form.usuario(class="form-control")}}
-				
-				{{form.password.label()}}
-				{{form.password(class="form-control")}}
-				{{form.submit(class="btn btn-lg btn-primary btn-block")}}
-			  </form>
+			</div>
 		</div>
-		<div class="col-md-4"></div>
-</div> <!-- /container -->
+		<div class="col"></div>
+	</div>
+</div>
 {% endblock %}

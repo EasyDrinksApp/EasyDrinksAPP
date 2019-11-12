@@ -1,5 +1,5 @@
 from sqlalchemy import Boolean, Column, ForeignKey
-from sqlalchemy import DateTime, Integer, String, Text, Float
+from sqlalchemy import DateTime, Integer, String, Text, Float, Date
 from sqlalchemy.orm import relationship
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -38,6 +38,11 @@ class Clientes(db.Model):
     def get_id(self):
         return str(self.id)
 
+    def save(self):
+        if not self.id:
+            db.session.add(self)
+        db.session.commit()
+
 class Productos(db.Model):
     __tablename__ = 'productos'
     id = Column(Integer, primary_key=True)
@@ -49,6 +54,11 @@ class Productos(db.Model):
 
     def precio_final(self):
         return self.precio
+    
+    def save(self):
+        if not self.id:
+            db.session.add(self)
+        db.session.commit()
 
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
@@ -61,3 +71,22 @@ class Categorias(db.Model):
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
+class Pedidos(db.Model):
+    __tablename__ = 'pedidos'
+    id = Column(Integer, primary_key=True)
+    fecha = Column(Date)
+    id_cliente = Column(Integer, ForeignKey('clientes.id'), nullable=False)
+    relcliente = relationship("Clientes", backref="Pedidos")
+    def __repr__(self):
+        return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
+
+class Detalle_pedido(db.Model):
+    __tablename__ = 'detalle_pedido'
+    id = Column(Integer, primary_key=True)
+    id_pedido = Column(Integer, ForeignKey('pedidos.id'), nullable=False)
+    id_producto = Column(Integer, ForeignKey('productos.id'), nullable=False)
+    cantidad = Column(Integer)
+    relpedido = relationship("Pedidos", backref="Detalle_pedido")
+    relproducto = relationship("Productos", backref="Detalle_pedido")
+    def __repr__(self):
+        return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))

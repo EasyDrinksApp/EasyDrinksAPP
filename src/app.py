@@ -8,6 +8,8 @@ from flask_login import LoginManager, login_user, logout_user, login_required,\
     current_user
 import config
 import json
+from datetime import datetime as dt
+from sqlalchemy import desc
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -31,6 +33,7 @@ def registro():
         if existe_usuario is None:
             user = Clientes()
             form.populate_obj(user)
+            print(user)
             db.session.add(user)
             db.session.commit()
             return redirect(url_for("Index"))
@@ -86,10 +89,8 @@ def perfil(usuario):
     del form.password
     if form.validate_on_submit():
         form.populate_obj(user)
-        #db.session.merge(user)
-        #db.session.add(user)
-        db.session.flush()
-        db.session.commit()
+        user.save()
+        
         return redirect(url_for("Index"))
     return render_template("registro.html", form=form, perfil=True)
 
@@ -104,8 +105,7 @@ def cambiar_password(usuario):
     form = FormChangePassword()
     if form.validate_on_submit():
         form.populate_obj(user)
-        #db.session.merge(user)
-        db.session.commit()
+        user.save()
         return redirect(url_for("Index"))
     return render_template("cambiar_password.html", form=form)
 
@@ -114,28 +114,30 @@ def cambiar_password(usuario):
 @app.route('/carrito/add/<id>', methods=["get", "post"])
 def carrito_add(id):
     from models import Productos
-    prod = Productos.query.get(id)
-    form = FormCarrito()
-    form.id.data = id
-    if form.validate_on_submit():
-        if prod.stock >= int(form.cantidad.data):
-            try:
-                datos = json.loads(request.cookies.get(str(current_user.id)))
-            except:
-                datos = []
-            actualizar = False
-            for dato in datos:
-                if dato["id"] == id:
-                    dato["cantidad"] = form.cantidad.data
-                    actualizar = True
-            if not actualizar:
-                datos.append({"id": form.id.data,
-                              "cantidad": form.cantidad.data})
-            resp = make_response(redirect(url_for('categorias')))
-            resp.set_cookie(str(current_user.id), json.dumps(datos))
-            return resp
-        form.cantidad.errors.append("No hay productos suficientes.")
-    return render_template("carrito_add.html", form=form, prod=prod)
+    if current_user.is_authenticated:
+        prod = Productos.query.get(id)
+        form = FormCarrito()
+        form.id.data = id
+        if form.validate_on_submit():
+            if prod.stock >= int(form.cantidad.data):
+                try:
+                    datos = json.loads(request.cookies.get(str(current_user.id)))
+                except:
+                    datos = []
+                actualizar = False
+                for dato in datos:
+                    if dato["id"] == id:
+                        dato["cantidad"] = form.cantidad.data
+                        actualizar = True
+                if not actualizar:
+                    datos.append({"id": form.id.data,
+                                "cantidad": form.cantidad.data})
+                resp = make_response(redirect(url_for('categorias')))
+                resp.set_cookie(str(current_user.id), json.dumps(datos))
+                return resp
+            form.cantidad.errors.append("No hay productos suficientes.")
+        return render_template("carrito_add.html", form=form, prod=prod)
+    return redirect(url_for("login"))
 
 @app.route('/carrito')
 def carrito():
@@ -184,19 +186,32 @@ def contar_carrito():
 @app.route('/pedido')
 @login_required
 def pedido():
-    from models import Productos
+    from models import Productos, Pedidos, Detalle_pedido
     try:
         datos = json.loads(request.cookies.get(str(current_user.id)))
+        print(current_user.id)
         print(datos)
     except:
         datos = []
     total = 0
+    pedido = Pedidos(fecha=dt.now(), id_cliente=current_user.id)
+    db.session.add(pedido)
+    db.session.commit()
+    print(pedido)
+    ultimopedido=Pedidos.query.order_by(desc(Pedidos.id)).first()
+    print(ultimopedido.id)
     for productos in datos:
         total = total + Productos.query.get(productos["id"]).precio_final() * \
             productos["cantidad"]
-        print(total)
-        Productos.query.get(productos["id"]).stock -= productos["cantidad"]
+        detallepedido = Detalle_pedido(id_pedido=ultimopedido.id,id_producto=productos["id"], cantidad=productos["cantidad"])
+        db.session.add(detallepedido)
         db.session.commit()
+        
+        update = Productos.query.filter_by(id=productos["id"]).first()
+        update2 = update.stock - productos["cantidad"]
+        update.stock = update2
+        update.save()
+        print(update)
     resp = make_response(render_template("pedido.html", total=total))
     resp.set_cookie(str(current_user.id), "", expires=0)
     return resp

@@ -1,24 +1,18 @@
 {% extends "layout.html" %}
 {% block body %}
 
-<head>
-
-</head>
-
-
 <body>
   <div class="container-fluid">
     <div>
       <div id="search-address">
-        <input type='text' id='customer-address' placeholder="Direccion (Ej: Lascano 4044, Capital Federal)" /><button id='button-check' type="button"
-          class="btn btn-info">Chequear</button>
+        <input type='text' id='customer-address' placeholder="Direccion (Ej: Lascano 4044, Capital Federal)" /><button
+          id='button-check' type="button" class="btn btn-info">Chequear</button>
       </div>
 
       <div id="mapid"></div>
 
       <div id='goproducts'>
-        <a id='goproducts-button' href='/categorias' class='invisible btn btn-success'>Ir a la pagina de
-          productos</a>
+        <a id='goproducts-button' href='/categorias' class='invisible btn btn-success'>Ver productos</a>
       </div>
 
       <script>
@@ -81,7 +75,7 @@
                 const myMarker = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
                 const myhq = new google.maps.LatLng(headquerters.lat, headquerters.lng);
                 const distance = google.maps.geometry.spherical.computeDistanceBetween(myMarker, myhq);
-                
+
                 //vardump(distance);
 
                 if (distance < RADIO) {
