@@ -5,7 +5,7 @@
   <div class="container-fluid">
     <div>
       <div id="search-address">
-        <input type='text' id='customer-address' placeholder="Direccion (Ej: Lascano 4044, Capital Federal)" /><button
+        <input type='text' id='customer-address' placeholder="Direccion (Ej: Lascano 4044, Cap Fed)" /><button
           id='button-check' type="button" class="btn btn-info">Chequear</button>
       </div>
 
@@ -13,6 +13,10 @@
 
       <div id='goproducts'>
         <a id='goproducts-button' href='/categorias' class='invisible btn btn-success'>Ver productos</a>
+      </div>
+
+      <div id='error'>
+        
       </div>
 
       <script>
@@ -50,11 +54,16 @@
 
         function checkAddress() {
           const $button = $('#goproducts-button');
+          $('#error').html('')
           isAddressInside()
             .then(() => $button.removeClass('invisible'))
-            .catch(() => $button.addClass('invisible'));
+            .catch(err => {
+              $('#error').html(err)
+              $button.addClass('invisible')
+            });
         }
-
+        var myMarker;
+        var marker;
         function isAddressInside() {
           return new Promise((resolve, reject) => {
             const yourAddress = document.getElementById('customer-address').value;
@@ -64,15 +73,18 @@
                 const lat = res.results[0].geometry.location.lat;
                 const lng = res.results[0].geometry.location.lng;
                 const miUbicacion = new google.maps.LatLng(lat, lng);
-
-                var marker = new google.maps.Marker({
+                if(marker) {
+                  marker.setMap(null)
+                }
+                marker = new google.maps.Marker({
                   position: miUbicacion,
                   map: map,
                   title: 'Usted esta aqui!',
                 });
 
                 var headquerters = { lat: -34.614264, lng: -58.498287 }
-                const myMarker = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
+                
+                myMarker = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
                 const myhq = new google.maps.LatLng(headquerters.lat, headquerters.lng);
                 const distance = google.maps.geometry.spherical.computeDistanceBetween(myMarker, myhq);
 
@@ -80,21 +92,21 @@
 
                 if (distance < RADIO) {
                   resolve()
-                } else {
-                  reject(new Error("Disculpa, aun no llegamos a tu ubicacion"));
-                }
-              })
-          })
-        }
-      </script>
-
-      <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHgtR4oHrwZv_r0cxKI0IY5nVh9s93Wz4&callback=initMap">
+                  } else {
+                    reject(new Error("Disculpa, aun no llegamos a tu ubicacion"));
+                  }
+                })
+            })
+          }
         </script>
+
+        <script async defer
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHgtR4oHrwZv_r0cxKI0IY5nVh9s93Wz4&callback=initMap">
+          </script>
+      </div>
     </div>
-  </div>
 
-</body>
+  </body>
 
 
-{% endblock %}
+  {% endblock %}

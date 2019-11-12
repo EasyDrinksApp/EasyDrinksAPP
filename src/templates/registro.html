@@ -14,7 +14,7 @@
             </center>
           </div>
           {% else %}
-          <h3>Perfil de {{session["usuario"]}}</h3>
+          <h3>Perfil de {{current_user.usuario}}</h3>
           {% endif %}
           {% for field, errors in form.errors.items() %}
           <div class="alert alert-danger">
