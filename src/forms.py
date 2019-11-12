@@ -20,15 +20,15 @@ class FormProducto(FlaskForm):
     submit = SubmitField('Enviar')
 
 class LoginForm(FlaskForm):
-    usuario = StringField('Usuario', validators=[Required()])
-    password = PasswordField('Password', validators=[Required()])
+    usuario = StringField('', validators=[Required()], render_kw={"placeholder": "Usuario"})
+    password = PasswordField('', validators=[Required()], render_kw={"placeholder": "Contraseña"})
     submit = SubmitField('Entrar')
 
 class FormCliente(FlaskForm):
-    usuario = StringField('Usuario', validators=[Required()])
-    password = PasswordField('Password', validators=[Required()])
-    nombre = StringField('Nombre completo')
-    email = EmailField('Email')
+    usuario = StringField('', validators=[Required()], render_kw={"placeholder": "Usuario"})
+    password = PasswordField('', validators=[Required()], render_kw={"placeholder": "Contraseña"})
+    nombre = StringField('', render_kw={"placeholder": "Nombre completo"})
+    email = EmailField('', render_kw={"placeholder": "Email"})
     submit = SubmitField('Aceptar')
 
 

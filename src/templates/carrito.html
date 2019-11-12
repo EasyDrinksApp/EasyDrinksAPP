@@ -1,60 +1,81 @@
 {% extends "layout.html" %}
 {% block title %}Listado de bebidas{% endblock %}
 {% block body %}
+
 <div class="container">
   <div class="row">
-      <h3>Carrito de la compra</h3>
-  </div>
-  <div class="row">
-    <br/>
-    <br/><br/>
-    {% if total>0 %}
-    <div class="list-group">
-      <table class="table table-bordered">
-          <tr>
-            <th>Nombre</th>
-            <th>Cantidad</th>
-            <th>Precio</th>
-            <th>Total</th>
-            <th>Eliminar</th>
-          </tr>
-      {% for producto in productos %}
-        <tr>
-          <td>{{producto.0.nombre}}</td>
-          <td>{{producto.1}}</td>
-          <td>{{producto.0.precio_final()}}</td>
-          <td>{{producto.0.precio_final()*producto.1}}</td>
-          <td><a href="{{url_for('carrito_delete',id=producto.0.id)}}"><span class="glyphicon glyphicon-trash"></span> Borrar</a></td>
-        </tr>
-      {% endfor %}
-      </table>
-      <h2>Total:{{total}}</h2>
-      <br>
-      <div class="row">
-        <div class="col-md-6-justified">
-          <a class="btn btn-primary" href="{{url_for('pedido')}}" role="button">Comprar</a>
-        </div>
-        <div class="col-md-6">
-          <a class="btn btn-secondary" href="{{url_for('categorias')}}" role="button">Volver</a>
+    <div class="col-3"></div>
+    <div class="col-6">
+      <div class="row mt-4">
+        <div class="card col-12 border-info pt-3 pb-3">
+          <center>
+            <h3 id="titulos">CARRITO DE COMPRAS</h3>
+          </center>
         </div>
       </div>
-      
-    </div>
-    {% else %}
-      <div>
-        <div class="row">
-          <h2>No hay artículos en el carrito</h2>
+      <div class="row mt-4">
+        {% if total>0 %}
+        <div class="list-group">
+          <table class="table table-bordered">
+            <tr>
+              <th style="background-color: #938c96;">
+                <h5>Nombre</h5>
+              </th>
+              <th style="background-color: #938c96;">
+                <h5>Cantidad</h4>
+              </th>
+              <th style="background-color: #938c96;">
+                <h5>Precio</h5>
+              </th>
+              <th style="background-color: #938c96;">
+                <h5>Total</h5>
+              </th>
+              <th style="background-color: #938c96;">
+                <h5>Eliminar</h5>
+              </th>
+            </tr>
+            {% for producto in productos %}
+            <tr>
+              <td class="align-middle">{{producto.0.nombre}}</td>
+              <td class="text-center align-middle">{{producto.1}}</td>
+              <td class="text-center align-middle">$ {{producto.0.precio_final()}}</td>
+              <td class="text-center align-middle">$ {{producto.0.precio_final()*producto.1}}</td>
+              <td class="text-center align-middle"><a class="btn btn-primary"
+                  href="{{url_for('carrito_delete',id=producto.0.id)}}"><span class="glyphicon glyphicon-trash"></span>
+                  Borrar</a></td>
+            </tr>
+            {% endfor %}
+          </table>
+          <div class="card border-warning" style="background-color: lightslategrey;">
+            <h2 id="preciofinal">Total: $ {{total}}</h2>
+          </div>
+          
+            <div class="mt-2">
+              <a class="btn btn-success" href="{{url_for('pedido')}}" role="button">Comprar</a>
+              <a class="btn btn-danger" href="{{url_for('categorias')}}" role="button">Cancelar</a>
+            </div>
         </div>
+
+        {% else %}
+
+        <div>
+          <div class="row">
+            <h2>No hay artículos en el carrito</h2>
+          </div>
           <div class="row">
             <div class="col-md-6">
-              <a class="btn btn-secondary" href="{{url_for('categorias')}}" role="button">Volver a productos</a>
+              <a class="btn btn-danger" href="{{url_for('categorias')}}" role="button">Volver a productos</a>
+            </div>
           </div>
         </div>
+
+        {% endif %}
+
       </div>
-      
-    {% endif %}  
+    </div>
+    <div class="col-6"></div>
   </div>
 </div>
- 	
-  
+
+
 {% endblock %}
