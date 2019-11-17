@@ -67,26 +67,37 @@ class Categorias(db.Model):
     __tablename__ = 'categorias'
     id = Column(Integer, primary_key=True)
     nombre = Column(String(15))
-    productos = relationship("Productos", cascade="all, delete-orphan", backref="Categorias")
+    #productos = relationship("Productos", cascade="all, delete-orphan", backref="Categorias")
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
-class Pedidos(db.Model):
-    __tablename__ = 'pedidos'
+class Orden(db.Model):
+    __tablename__ = 'orden'
     id = Column(Integer, primary_key=True)
     fecha = Column(Date)
     id_cliente = Column(Integer, ForeignKey('clientes.id'), nullable=False)
-    relcliente = relationship("Clientes", backref="Pedidos")
+    direccion = Column(String(200))
+    estado_id = Column(Integer, ForeignKey('estados.id'), nullable=False)
+    relcliente = relationship("Clientes", backref="Orden")
+    relorden = relationship("Estados", backref="Orden")
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
 
-class Detalle_pedido(db.Model):
-    __tablename__ = 'detalle_pedido'
+class Orden_items(db.Model):
+    __tablename__ = 'orden_items'
     id = Column(Integer, primary_key=True)
-    id_pedido = Column(Integer, ForeignKey('pedidos.id'), nullable=False)
+    id_orden = Column(Integer, ForeignKey('orden.id'), nullable=False)
     id_producto = Column(Integer, ForeignKey('productos.id'), nullable=False)
     cantidad = Column(Integer)
-    relpedido = relationship("Pedidos", backref="Detalle_pedido")
-    relproducto = relationship("Productos", backref="Detalle_pedido")
+    relordenitems = relationship("Orden", backref="Orden_items")
+    relproducto = relationship("Productos", backref="Orden_items")
+    def __repr__(self):
+        return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))
+
+class Estados(db.Model):
+    __tablename__ = 'estados'
+    id = Column(Integer, primary_key=True)
+    nombre = Column(String(20))
+    #relorden = relationship("Orden", backref="Estados")
     def __repr__(self):
         return (u'<{self.__class__.__name__}: {self.id}>'.format(self=self))

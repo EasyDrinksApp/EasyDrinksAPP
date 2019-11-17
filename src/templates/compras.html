@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block title %}Tienda de Easydrinks{% endblock %}
+{% block body %}
+
+<div class="container">
+  <div class="main">
+    <div class="row">
+      <div class="card col-12 border-info mt-4 pt-2">
+        <h3 id="titulos">Compras realizadas</h3>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 mt-4">
+            <div class="panel panel-default" style="height:500px;overflow:auto;">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th class="text-center" style="background-color: #938c96;">
+                      <h5>N° Orden</h5>
+                    </th>
+                    <th class="text-center" style="background-color: #938c96;">
+                      <h5>Fecha</h5>
+                    </th>
+                    <th class="text-center" style="background-color: #938c96;">
+                        <h5>Estado</h5>
+                    </th>
+                  </tr>
+                </thead>
+
+                {% for item in t_orden %}
+                <tr>    
+                    <td class="text-center align-middle">{{item.id}}</td>
+                    <td class="text-center align-middle">{{item.fecha}}</td>
+                    <td class="text-center align-middle">{{item.relorden.nombre}}</td>
+                </tr>
+                {% endfor %}
+              </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

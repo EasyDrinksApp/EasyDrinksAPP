@@ -76,6 +76,7 @@ def categorias(id = '0'):
     else:
             productos=Productos.query.filter_by(categoriaId=id)
     categorias=Categorias.query.order_by(Categorias.id).all()
+    print(categorias)
     return render_template('categorias.html',productos=productos,categorias=categorias,categoria=categoria)
 
 @app.route('/perfil/<usuario>', methods=["get", "post"])
@@ -184,10 +185,10 @@ def contar_carrito():
         return {'num_productos': len(datos)}
 
 
-@app.route('/pedido')
+@app.route('/orden')
 @login_required
-def pedido():
-    from models import Productos, Pedidos, Detalle_pedido
+def orden():
+    from models import Productos, Orden, Orden_items
     try:
         datos = json.loads(request.cookies.get(str(current_user.id)))
         print(current_user.id)
@@ -195,17 +196,17 @@ def pedido():
     except:
         datos = []
     total = 0
-    pedido = Pedidos(fecha=dt.now(), id_cliente=current_user.id)
-    db.session.add(pedido)
+    orden = Orden(fecha=dt.now(), id_cliente=current_user.id, estado_id='4')
+    db.session.add(orden)
     db.session.commit()
-    print(pedido)
-    ultimopedido=Pedidos.query.order_by(desc(Pedidos.id)).first()
-    print(ultimopedido.id)
+    print(orden)
+    ultimoorden=Orden.query.order_by(desc(Orden.id)).first()
+    print(ultimoorden.id)
     for productos in datos:
         total = total + Productos.query.get(productos["id"]).precio_final() * \
             productos["cantidad"]
-        detallepedido = Detalle_pedido(id_pedido=ultimopedido.id,id_producto=productos["id"], cantidad=productos["cantidad"])
-        db.session.add(detallepedido)
+        detalleorden = Orden_items(id_orden=ultimoorden.id,id_producto=productos["id"], cantidad=productos["cantidad"])
+        db.session.add(detalleorden)
         db.session.commit()
         
         update = Productos.query.filter_by(id=productos["id"]).first()
@@ -213,9 +214,33 @@ def pedido():
         update.stock = update2
         update.save()
         print(update)
-    resp = make_response(render_template("pedido.html", total=total))
+    resp = make_response(render_template("orden.html", total=total))
     resp.set_cookie(str(current_user.id), "", expires=0)
     return resp
+
+@app.route('/compras/<usuario>', methods=["get", "post"])
+@login_required
+def compras(usuario):
+    from models import Orden, Clientes, Orden_items, Productos
+    user = Clientes.query.filter_by(usuario=usuario).first()
+    print(user)
+    print(user.id)
+    t_orden = Orden.query.filter_by(id_cliente=user.id).join(Orden.relorden).all()
+    #t_orden2 = Orden_items.query.filter_by(id_orden='1').join(Orden_items.relproducto).first()
+    #t_orden2 = Orden_items.query.filter_by(id_orden='1').join(Orden_items.relproducto).all()
+    #print(t_orden2)
+    #for prod in t_orden2:
+    #    print(prod.relproducto.nombre)
+    #Cerveza QUILMES Botella 1 L
+    #Cosecha Tardia Chardonnay 750 CC
+
+    #t_orden=Orden_items.query.filter_by(id_orden='1').join(Orden_items.relproducto).all()
+
+    print(t_orden)
+    #for ordenes in t_orden:
+    #    print (ordenes.id)
+
+    return render_template('compras.html',t_orden=t_orden) #,t_orden2=t_orden2
 
 @app.errorhandler(404)
 def page_not_found(error):
