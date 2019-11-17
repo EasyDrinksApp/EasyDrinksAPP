@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-
+ 
 <body>
   <div class="container-fluid">
     <div>
@@ -8,22 +8,22 @@
         <input type='text' id='customer-address' placeholder="Direccion (Ej: Lascano 4044, Cap Fed)" /><button
           id='button-check' type="button" class="btn btn-info">Chequear</button>
       </div>
-
+ 
       <div id="mapid"></div>
-
+ 
       <div id='goproducts'>
         <a id='goproducts-button' href='/categorias' class='invisible btn btn-success'>Ver productos</a>
       </div>
-
+ 
       <div id='error'>
         
       </div>
-
+ 
       <script>
-
+ 
         const RADIO = 2000.00;
         let map;
-
+ 
         // Inicializacion y adicion de mapa
         function initMap() {
           // Ubicacion del IFTS16
@@ -49,9 +49,9 @@
             radius: Math.sqrt(barrio.population) * 11
           })
         }
-
+ 
         document.getElementById('button-check').onclick = checkAddress;
-
+ 
         function checkAddress() {
           const $button = $('#goproducts-button');
           $('#error').html('')
@@ -81,15 +81,15 @@
                   map: map,
                   title: 'Usted esta aqui!',
                 });
-
+ 
                 var headquerters = { lat: -34.614264, lng: -58.498287 }
                 
                 myMarker = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
                 const myhq = new google.maps.LatLng(headquerters.lat, headquerters.lng);
                 const distance = google.maps.geometry.spherical.computeDistanceBetween(myMarker, myhq);
-
+ 
                 //vardump(distance);
-
+ 
                 if (distance < RADIO) {
                   resolve()
                   } else {
@@ -99,14 +99,14 @@
             })
           }
         </script>
-
+ 
         <script async defer
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHgtR4oHrwZv_r0cxKI0IY5nVh9s93Wz4&callback=initMap">
           </script>
       </div>
     </div>
-
+ 
   </body>
-
-
+ 
+ 
   {% endblock %}

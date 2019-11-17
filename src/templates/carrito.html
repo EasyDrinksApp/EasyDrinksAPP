@@ -3,17 +3,14 @@
 {% block body %}
 
 <div class="container">
-  <div class="row">
-    <div class="col-3"></div>
-    <div class="col-6">
-      <div class="row mt-4">
-        <div class="card col-12 border-info pt-3 pb-3">
-          <center>
-            <h3 id="titulos">CARRITO DE COMPRAS</h3>
-          </center>
-        </div>
+  <div class="main">
+    <div class="row mt-4">
+      <div class="card col-12 border-info pt-2">
+        <h3 id="titulos">CARRITO DE COMPRAS</h3>
       </div>
-      <div class="row mt-4">
+    </div>
+    <div class="row justify-content-center">
+      <div class="col mt-4">
         {% if total>0 %}
         <div class="list-group">
           <table class="table table-bordered">
@@ -49,23 +46,21 @@
           <div class="card border-warning" style="background-color: lightslategrey;">
             <h2 id="preciofinal">Total: $ {{total}}</h2>
           </div>
-          
-            <div class="mt-2">
-              <a class="btn btn-success" href="{{url_for('pedido')}}" role="button">Comprar</a>
-              <a class="btn btn-danger" href="{{url_for('categorias')}}" role="button">Cancelar</a>
-            </div>
+
+          <div class="mt-2">
+            <a class="btn btn-success" href="{{url_for('orden')}}" role="button">Comprar</a>
+            <a class="btn btn-danger" href="{{url_for('categorias')}}" role="button">Volver</a>
+          </div>
         </div>
 
         {% else %}
 
         <div>
           <div class="row">
-            <h2>No hay artículos en el carrito</h2>
+            <p>No hay artículos en el carrito</p>
           </div>
           <div class="row">
-            <div class="col-md-6">
-              <a class="btn btn-danger" href="{{url_for('categorias')}}" role="button">Volver a productos</a>
-            </div>
+            <a class="btn btn-danger" href="{{url_for('categorias')}}" role="button">Volver a productos</a>
           </div>
         </div>
 
@@ -73,7 +68,6 @@
 
       </div>
     </div>
-    <div class="col-6"></div>
   </div>
 </div>
 

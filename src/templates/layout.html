@@ -10,18 +10,6 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
 
-  <!-- Leaflet CSS-->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-    crossorigin="" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-
-  <!-- Leaflet JS File-->
-  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-    crossorigin=""></script>
-  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-
   <!-- Mapbox API -->
   <script src='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js'></script>
   <link href='https://api.mapbox.com/mapbox-gl-js/v1.3.2/mapbox-gl.css' rel='stylesheet' />
@@ -30,7 +18,7 @@
   <script src="https://kit.fontawesome.com/15b7c25fbd.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<header>
 
   <!-- NAVIGATION  -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -51,7 +39,7 @@
 
         {% if current_user.is_authenticated %}
         <li>
-          <a class="navbar-brand " href="/carrito"><span class="badge" >{{num_productos}} <i
+          <a class="navbar-brand " href="/carrito"><span class="badge">{{num_productos}} <i
                 class="fas fa-shopping-cart fa-lg"></i></span></a>
         </li>
         <li>
@@ -72,75 +60,35 @@
       </ul>
     </div>
   </nav>
+</header>
 
-
-  {% block body %}
-  {% endblock %}
-
-</body>
+{% block body %}
+{% endblock %}
 
 <footer>
-  <div id="footer" class="container-fluid bg-dark fixed-bottom">
+  <div id="footer" class="container-fluid bg-dark">
     <div id="footer-col" class="row">
-      <div class="col-sm text-center">
+      <div class="col-4 text-center">
         <ul style="list-style-type:none;">
-          <center>
-            <li>
-              <span style="color: grey">INFO</span>
-            </li>
-          </center>
-          <center>
-            <li style="color: white">
-              Nosotros
-            </li>
-          </center>
-          <center>
-            <li style="color: white">
-              Contacto
-            </li>
-          </center>
+          <li><span id="sp">INFO</span></li>
+          <li id="li">Nosotros</li>
+          <li id="li">Contacto</li>
       </div>
-      <div class="col-sm text-center">
+      <div class="col-4 text-center">
         <ul style="list-style-type:none;">
-          <center>
-            <li>
-              <span style="color: grey">SEGUINOS</span>
-            </li>
-          </center>
-          <center>
-            <li style="color: white">
-              Facebook
-            </li>
-          </center>
-          <center>
-            <li style="color: white">
-              Twitter
-            </li>
-          </center>
-          <center>
-            <li style="color: white">
-              Instagram
-            </li>
-          </center>
+          <li><span id="sp">SEGUINOS</span></li>
+          <li id="li">Facebook</li>
+          <li id="li">Twitter</li>
+          <li id="li">Instagram</li>
         </ul>
       </div>
-      <div class="col-sm">
+      <div class="col-4 text-center">
         <ul style="list-style-type:none;">
-          <center>
-            <li>
-              <span style="color: grey">UNITE A EASYDRINKS</span>
-            </li>
-          </center>
-          <center>
-            <li style="color: white">
-              Empleos
-            </li>
-          </center>
-          <center>
-            <li>
-              <a href="https://easydrinks-php.herokuapp.com/login.php" style="color: yellow">Acceso Empleados</a>
-            </li>
-          </center>
+          <li><span id="sp">UNITE A EASYDRINKS</span></li>
+          <li id="li">Empleos</li>
+          <li>
+            <a href="https://easydrinks-php.herokuapp.com/login.php" style="color: yellow">Acceso Empleados</a>
+          </li>
         </ul>
       </div>
     </div>

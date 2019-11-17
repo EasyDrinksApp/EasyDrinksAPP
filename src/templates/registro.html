@@ -43,7 +43,11 @@
             <div class="form-group">
               {{form.email.label() }}{{form.email(size="100",class="form-control")}}<br />
             </div>
-            {{form.submit(class="btn btn-lg btn-info")}}
+            <div>
+              <a href="/compras/{{current_user.usuario}}">Compras realizadas</a><br />
+              <br>
+            </div>
+            {{form.submit(class="btn btn-info")}}
           </form>
         </div>
       </div>
