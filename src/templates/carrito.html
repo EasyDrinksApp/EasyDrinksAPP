@@ -13,39 +13,42 @@
       <div class="col mt-4">
         {% if total>0 %}
         <div class="list-group">
-          <table class="table table-bordered">
-            <tr>
-              <th style="background-color: #938c96;">
-                <h5>Nombre</h5>
-              </th>
-              <th style="background-color: #938c96;">
-                <h5>Cantidad</h4>
-              </th>
-              <th style="background-color: #938c96;">
-                <h5>Precio</h5>
-              </th>
-              <th style="background-color: #938c96;">
-                <h5>Total</h5>
-              </th>
-              <th style="background-color: #938c96;">
-                <h5>Eliminar</h5>
-              </th>
-            </tr>
-            {% for producto in productos %}
-            <tr>
-              <td class="align-middle">{{producto.0.nombre}}</td>
-              <td class="text-center align-middle">{{producto.1}}</td>
-              <td class="text-center align-middle">$ {{producto.0.precio_final()}}</td>
-              <td class="text-center align-middle">$ {{producto.0.precio_final()*producto.1}}</td>
-              <td class="text-center align-middle"><a class="btn btn-primary"
-                  href="{{url_for('carrito_delete',id=producto.0.id)}}"><span class="glyphicon glyphicon-trash"></span>
-                  Borrar</a></td>
-            </tr>
-            {% endfor %}
-          </table>
+          <div class="panel panel-default" style="height:200px;overflow:auto;">
+            <table class="table table-bordered">
+              <tr>
+                <th style="background-color: #938c96;">
+                  <h5>Nombre</h5>
+                </th>
+                <th style="background-color: #938c96;">
+                  <h5>Cantidad</h4>
+                </th>
+                <th style="background-color: #938c96;">
+                  <h5>Precio</h5>
+                </th>
+                <th style="background-color: #938c96;">
+                  <h5>Total</h5>
+                </th>
+                <th style="background-color: #938c96;">
+                  <h5>Eliminar</h5>
+                </th>
+              </tr>
+              {% for producto in productos %}
+              <tr>
+                <td class="align-middle">{{producto.0.nombre}}</td>
+                <td class="text-center align-middle">{{producto.1}}</td>
+                <td class="text-center align-middle">$ {{producto.0.precio_final()}}</td>
+                <td class="text-center align-middle">$ {{producto.0.precio_final()*producto.1}}</td>
+                <td class="text-center align-middle"><a class="btn btn-primary"
+                    href="{{url_for('carrito_delete',id=producto.0.id)}}"><span class="glyphicon glyphicon-trash"></span>
+                    Borrar</a></td>
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
           <div class="card border-warning" style="background-color: lightslategrey;">
             <h2 id="preciofinal">Total: $ {{total}}</h2>
           </div>
+          
 
           <div class="mt-2">
             <a class="btn btn-success" href="{{url_for('orden')}}" role="button">Comprar</a>
