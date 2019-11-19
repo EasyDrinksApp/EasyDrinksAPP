@@ -1,1 +1,1 @@
-web: python src/app.py
+web: python3.7 src/app.py

@@ -2,10 +2,8 @@ from flask import Flask, render_template, redirect, url_for, request, session, e
 import psycopg2
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from forms import FormProducto, LoginForm,\
-    FormCliente, FormChangePassword, FormCarrito
-from flask_login import LoginManager, login_user, logout_user, login_required,\
-    current_user
+from forms import FormProducto, LoginForm, FormCliente, FormChangePassword, FormCarrito
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 import config
 import json
 from datetime import datetime as dt
@@ -53,7 +51,7 @@ def login():
             login_user(user)
             next = request.args.get('next')
             return redirect(next or url_for('Index'))
-        form.usuario.errors.append("Usuario o contraseña incorrectas.")
+        form.usuario.errors.append("Usuario o contrasena incorrectas.")
     return render_template('login.html', form=form)
 
 @login_manager.user_loader
@@ -231,7 +229,7 @@ def compras(usuario):
 
 @app.errorhandler(404)
 def page_not_found(error):
-    return render_template("error.html", error="Página no encontrada..."), 404
+    return render_template("error.html", error="Pagina no encontrada..."), 404
 
 if __name__ == "__main__":
     #app.run(host="0.0.0.0", port=3000, debug=True)
