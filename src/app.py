@@ -2,10 +2,8 @@ from flask import Flask, render_template, redirect, url_for, request, session, e
 import psycopg2
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from forms import FormProducto, LoginForm,\
-    FormCliente, FormChangePassword, FormCarrito
-from flask_login import LoginManager, login_user, logout_user, login_required,\
-    current_user
+from forms import FormProducto, LoginForm, FormCliente, FormChangePassword, FormCarrito
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 import config
 import json
 from datetime import datetime as dt
