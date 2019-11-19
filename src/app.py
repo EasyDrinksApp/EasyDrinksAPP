@@ -2,8 +2,10 @@ from flask import Flask, render_template, redirect, url_for, request, session, e
 import psycopg2
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from forms import FormProducto, LoginForm, FormCliente, FormChangePassword, FormCarrito
-from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from forms import FormProducto, LoginForm,\
+    FormCliente, FormChangePassword, FormCarrito
+from flask_login import LoginManager, login_user, logout_user, login_required,\
+    current_user
 import config
 import json
 from datetime import datetime as dt
@@ -224,25 +226,12 @@ def compras(usuario):
     print(user)
     print(user.id)
     t_orden = Orden.query.filter_by(id_cliente=user.id).join(Orden.relorden).all()
-    #t_orden2 = Orden_items.query.filter_by(id_orden='1').join(Orden_items.relproducto).first()
-    #t_orden2 = Orden_items.query.filter_by(id_orden='1').join(Orden_items.relproducto).all()
-    #print(t_orden2)
-    #for prod in t_orden2:
-    #    print(prod.relproducto.nombre)
-    #Cerveza QUILMES Botella 1 L
-    #Cosecha Tardia Chardonnay 750 CC
-
-    #t_orden=Orden_items.query.filter_by(id_orden='1').join(Orden_items.relproducto).all()
-
     print(t_orden)
-    #for ordenes in t_orden:
-    #    print (ordenes.id)
-
-    return render_template('compras.html',t_orden=t_orden) #,t_orden2=t_orden2
-
+    return render_template('compras.html',t_orden=t_orden)
+    
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template("error.html", error="Página no encontrada..."), 404
 
 if __name__ == "__main__":
-    app.run(port=3000, debug=False)
+    app.run(host="0.0.0.0", port=3000, debug=True)

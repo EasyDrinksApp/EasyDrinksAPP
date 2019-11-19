@@ -6,7 +6,7 @@
     <div>
       <div class="row">
       <div id="search-address">
-        <input type='text' id='customer-address' placeholder="Direccion (Ej: Lascano 4044, Cap Fed)" />
+        <input type='text' id='customer-address' placeholder="Direccion (Ej: Lascano 4044, caba)" />
         <button id='button-check' type="button" class="btn btn-info pull-right">Chequear</button>
       </div>
       </div>
@@ -69,6 +69,7 @@
         function isAddressInside() {
           return new Promise((resolve, reject) => {
             const yourAddress = document.getElementById('customer-address').value;
+            console.log(yourAddress);
             fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + yourAddress + '&key=AIzaSyBHgtR4oHrwZv_r0cxKI0IY5nVh9s93Wz4')
               .then(res => res.json())
               .then(res => {
