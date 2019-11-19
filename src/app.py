@@ -248,4 +248,4 @@ def page_not_found(error):
 
 if __name__ == "__main__":
     #app.run(host="0.0.0.0", port=3000, debug=True)
-    app.run(threaded=True, port=3000, debug=True)
+    app.run(threaded=True, port=5000)
