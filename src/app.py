@@ -9,6 +9,7 @@ import json
 from datetime import datetime as dt
 from sqlalchemy import desc
 import googlemaps
+import os
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -16,6 +17,7 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
+port = int(os.environ.get("PORT", 33507))
 
 @app.route('/')
 def Index():
@@ -233,4 +235,4 @@ def page_not_found(error):
 
 if __name__ == "__main__":
     #app.run(host="0.0.0.0", port=3000, debug=True)
-    app.run(host="0.0.0.0", port=33507, debug=False)
+    app.run(host="0.0.0.0", port=port, debug=False)
